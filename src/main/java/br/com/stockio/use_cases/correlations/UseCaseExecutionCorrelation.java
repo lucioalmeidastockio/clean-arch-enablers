@@ -22,6 +22,10 @@ public class UseCaseExecutionCorrelation {
         }
     }
 
+    public static UseCaseExecutionCorrelation ofNew(){
+        return new UseCaseExecutionCorrelation(UUID.randomUUID());
+    }
+
     public UUID getId(){
         return this.id;
     }

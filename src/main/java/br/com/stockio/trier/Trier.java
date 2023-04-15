@@ -1,6 +1,6 @@
 package br.com.stockio.trier;
 
-import br.com.stockio.exceptions.MappedException;
+import br.com.stockio.mapped_exceptions.MappedException;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

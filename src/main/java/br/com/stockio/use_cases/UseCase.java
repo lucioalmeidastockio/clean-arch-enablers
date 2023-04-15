@@ -12,10 +12,6 @@ public abstract class UseCase {
         this.useCaseMetadata = useCaseMetadata;
         this.logger = logger;
     }
-
-    public String getUseCaseId(){
-        return this.useCaseMetadata.getName();
-    }
     public UseCaseMetadata getUseCaseMetadata(){
         return this.useCaseMetadata;
     }

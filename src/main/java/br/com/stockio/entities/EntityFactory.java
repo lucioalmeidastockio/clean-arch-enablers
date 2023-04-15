@@ -1,6 +1,6 @@
 package br.com.stockio.entities;
 
-public interface EntityFactory <@Entity E>{
+public interface EntityFactory <E extends Entity>{
 
     E makeNewInstance();
 

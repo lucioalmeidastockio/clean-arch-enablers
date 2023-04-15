@@ -4,14 +4,14 @@ package br.com.stockio.use_cases;
 import br.com.stockio.loggers.Logger;
 import br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;
 import br.com.stockio.use_cases.io.UseCaseInput;
-import br.com.stockio.use_cases.subtypes.consumers.ConsumerUseCase;
-import br.com.stockio.use_cases.subtypes.consumers.ConsumerUseCaseProcessor;
-import br.com.stockio.use_cases.subtypes.functions.FunctionUseCase;
-import br.com.stockio.use_cases.subtypes.functions.FunctionUseCaseProcessor;
-import br.com.stockio.use_cases.subtypes.runnables.RunnableUseCase;
-import br.com.stockio.use_cases.subtypes.runnables.RunnableUseCaseProcessor;
-import br.com.stockio.use_cases.subtypes.suppliers.SupplierUseCase;
-import br.com.stockio.use_cases.subtypes.suppliers.SupplierUseCaseProcessor;
+import br.com.stockio.use_cases.specifics.consumers.ConsumerUseCase;
+import br.com.stockio.use_cases.specifics.consumers.ConsumerUseCaseProcessor;
+import br.com.stockio.use_cases.specifics.functions.FunctionUseCase;
+import br.com.stockio.use_cases.specifics.functions.FunctionUseCaseProcessor;
+import br.com.stockio.use_cases.specifics.runnables.RunnableUseCase;
+import br.com.stockio.use_cases.specifics.runnables.RunnableUseCaseProcessor;
+import br.com.stockio.use_cases.specifics.suppliers.SupplierUseCase;
+import br.com.stockio.use_cases.specifics.suppliers.SupplierUseCaseProcessor;
 
 public class UseCaseProcessorFactory {
 

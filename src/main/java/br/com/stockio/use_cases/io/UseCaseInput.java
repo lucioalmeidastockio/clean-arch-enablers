@@ -1,12 +1,12 @@
 package br.com.stockio.use_cases.io;
 
-import br.com.stockio.exceptions.ProcessException;
+import br.com.stockio.mapped_exceptions.specifics.InternalMappedException;
 import br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;
-import br.com.stockio.use_cases.exceptions.*;
-import br.com.stockio.use_cases.io.validators.NotBlankInputField;
-import br.com.stockio.use_cases.io.validators.NotEmptyInputField;
-import br.com.stockio.use_cases.io.validators.NotNullInputField;
-import br.com.stockio.use_cases.io.validators.ValidInnerPropertiesInputField;
+import br.com.stockio.use_cases.io.annotations.NotBlankInputField;
+import br.com.stockio.use_cases.io.annotations.NotEmptyInputField;
+import br.com.stockio.use_cases.io.annotations.NotNullInputField;
+import br.com.stockio.use_cases.io.annotations.ValidInnerPropertiesInputField;
+import br.com.stockio.use_cases.io.exceptions.*;
 
 import java.lang.reflect.Field;
 import java.util.Optional;
@@ -34,7 +34,7 @@ public class UseCaseInput {
                 this.handleNotNullAnnotation(field);
             }
         } catch (Exception e) {
-            throw new ProcessException("Something went wrong while trying to validate properties of use case input object. More details: " + e + "  |  " + this.useCaseExecutionCorrelation);
+            throw new InternalMappedException("Something went wrong while trying to validate properties of use case input object.",  "More details: " + e + "  | correlation ID:  " + this.useCaseExecutionCorrelation);
         }
     }
 

@@ -23,7 +23,7 @@ public abstract class UseCaseProcessor<U extends UseCase> {
     protected void logExecutionStart(){
         this.startingMoment = LocalDateTime.now();
         var messageToDisplay = "Use case \""
-                + (this.useCase.getUseCaseId())
+                + (this.useCase.getUseCaseMetadata().getName())
                 + "\" execution with correlation ID of \""
                 + this.useCaseExecutionCorrelation.getId().toString()
                 + "\" ";
