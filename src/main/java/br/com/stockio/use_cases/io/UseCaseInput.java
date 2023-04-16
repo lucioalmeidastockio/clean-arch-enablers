@@ -25,6 +25,8 @@ public class UseCaseInput {
 
     public void validateProperties(){
         try {
+            if (this.useCaseExecutionCorrelation == null)
+                throw new InternalMappedException("Use case inputs must have correlation ID", "The correlation ID of " + this.getClass().getSimpleName() + " was null");
             var fields = this.getClass().getFields();
             for (var field : fields){
                 field.setAccessible(true);
