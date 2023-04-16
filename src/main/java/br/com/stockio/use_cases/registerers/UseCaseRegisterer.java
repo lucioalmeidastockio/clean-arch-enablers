@@ -1,6 +1,7 @@
 package br.com.stockio.use_cases.registerers;
 
 
+import br.com.stockio.use_cases.UseCase;
 import br.com.stockio.use_cases.metadata.UseCaseMetadata;
 
 import java.io.BufferedWriter;
@@ -10,9 +11,17 @@ import java.util.List;
 
 public class UseCaseRegisterer {
     private final BufferedWriter fileWriter;
-    public static void runOn(List<UseCaseMetadata> useCases) {
+
+    public static void runOnUseCases(List<UseCase> useCases) {
         var registerer = UseCaseRegisterer.defaultInstance();
-        useCases.forEach(registerer::externalizeUseCase);
+        useCases.stream()
+                .map(UseCase::getUseCaseMetadata)
+                .forEach(registerer::externalizeUseCase);
+        registerer.endRegistering();
+    }
+    public static void runOnUseCasesMetadata(List<UseCaseMetadata> useCasesMetadata) {
+        var registerer = UseCaseRegisterer.defaultInstance();
+        useCasesMetadata.forEach(registerer::externalizeUseCase);
         registerer.endRegistering();
     }
     private static UseCaseRegisterer defaultInstance() {
@@ -40,7 +49,7 @@ public class UseCaseRegisterer {
             throw new ExternalizeUseCaseException(e);
         }
     }
-    private static class ExternalizeUseCaseException extends RuntimeException {
+    protected static class ExternalizeUseCaseException extends RuntimeException {
         public ExternalizeUseCaseException(Exception e) {
             super("Something went wrong while trying to externalize use cases info. More details: " + e.toString());
         }
