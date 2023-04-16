@@ -15,6 +15,7 @@
             <properties>
                 <gpg.executable>gpg</gpg.executable>
                 <gpg.passphrase>${GPGPASS}</gpg.passphrase>
+                <gpg.keyname>${GPGKEYID}</gpg.keyname>
             </properties>
             <repositories>
                 <repository>
@@ -42,19 +43,5 @@
             </pluginRepositories>
         </profile>
     </profiles>
-    <activeProfiles>
-        <activeProfile>ossrh</activeProfile>
-    </activeProfiles>
-    <servers>
-        <server>
-            <id>ossrh</id>
-            <username>your-sonatype-username</username>
-            <password>your-sonatype-password</password>
-            <configuration>
-                <gpg.passphrase>${GPGPASS}</gpg.passphrase>
-                <gpg.useagent>false</gpg.useagent>
-                <gpg.executable>gpg</gpg.executable>
-            </configuration>
-        </server>
-    </servers>
 </settings>
+
