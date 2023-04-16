@@ -41,4 +41,9 @@ class UseCaseExecutionCorrelationTest {
         Assertions.assertThrows(CorrelationIdValueFormatException.class, () -> UseCaseExecutionCorrelation.of("some not UUID string"));
     }
 
+    @Test
+    void shouldReturnToStringAsExpected(){
+        Assertions.assertEquals(this.randomUUID.toString(), new UseCaseExecutionCorrelation(this.randomUUID).toString());
+    }
+
 }
