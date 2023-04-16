@@ -1,0 +1,187 @@
+package br.com.stockio.use_cases.io;
+
+import br.com.stockio.mapped_exceptions.specifics.InternalMappedException;
+import br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;
+import br.com.stockio.use_cases.io.annotations.NotBlankInputField;
+import br.com.stockio.use_cases.io.annotations.NotEmptyInputField;
+import br.com.stockio.use_cases.io.annotations.NotNullInputField;
+import br.com.stockio.use_cases.io.annotations.ValidInnerPropertiesInputField;
+import br.com.stockio.use_cases.io.exceptions.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class UseCaseInputTest {
+
+    private SomeNormalUseCaseInputImplementation normalUseCase;
+    @BeforeEach
+    void setUp(){
+        this.normalUseCase = new SomeNormalUseCaseInputImplementation(UseCaseExecutionCorrelation.ofNew());
+        this.normalUseCase.setFieldWhichMustNotBeEmpty("Not empty string");
+        this.normalUseCase.setFieldWhichMustNotBeBlank("Not blank field");
+        this.normalUseCase.setFieldWhichMustNotBeNull(3);
+        var innerObject = new SomeNormalInnerUseCaseInput(this.normalUseCase.getCorrelation());
+        innerObject.setInnerFieldWhichMustNotBeNull(1);
+        this.normalUseCase.setFieldWhichMustHaveItsPropertiesValid(innerObject);
+    }
+
+    @Test
+    void shouldValidateWithoutProblemsTheUseCaseInputImplementation(){
+        Assertions.assertDoesNotThrow(this.normalUseCase::validateProperties);
+    }
+
+    @Test
+    void shouldThrowNullFieldExceptionWhenValidatingUseCaseInputImplementation(){
+        this.normalUseCase.setFieldWhichMustNotBeNull(null);
+        Assertions.assertThrows(NullFieldException.class, this.normalUseCase::validateProperties);
+    }
+
+    @Test
+    void shouldThrowBlankFieldExceptionWhenValidatingUseCaseInputImplementation(){
+        this.normalUseCase.setFieldWhichMustNotBeBlank("    ");
+        Assertions.assertThrows(BlankFieldException.class, this.normalUseCase::validateProperties);
+    }
+
+    @Test
+    void shouldThrowEmptyFieldExceptionWhenValidatingUseCaseInputImplementation(){
+        this.normalUseCase.setFieldWhichMustNotBeEmpty("");
+        Assertions.assertThrows(EmptyFieldException.class, this.normalUseCase::validateProperties);
+    }
+
+    @Test
+    void shouldThrowNullFieldExceptionWhenValidatingInnerPropertiesOfAPropertyOfTheUseCaseInputImplementation(){
+        this.normalUseCase.getFieldWhichMustHaveItsPropertiesValid().setInnerFieldWhichMustNotBeNull(null);
+        Assertions.assertThrows(NullFieldException.class, this.normalUseCase::validateProperties);
+    }
+
+    @Test
+    void shouldThrowNullUseCaseExecutionCorrelationException(){
+        var input = new SomeNormalInnerUseCaseInput(null);
+        Assertions.assertThrows(UseCaseInput.NullUseCaseExecutionCorrelationException.class, input::validateProperties);
+    }
+
+    @Test
+    void shouldThrowNotBlankAnnotationOnWrongTypeException(){
+        var input = new SomeProblematicInputWithNotBlankAnnotation();
+        Assertions.assertThrows(NotBlankAnnotationOnWrongTypeException.class, input::validateProperties);
+    }
+
+    @Test
+    void shouldThrowNotEmptyAnnotationOnWrongTypeException(){
+        var input = new SomeProblematicInputWithNotEmptyAnnotation();
+        Assertions.assertThrows(NotEmptyAnnotationOnWrongTypeException.class, input::validateProperties);
+    }
+
+    @Test
+    void shouldThrowValidInnerPropertiesAnnotationOnWrongTypeException(){
+        var input = new SomeProblematicInputWithValidInnerPropertiesAnnotation();
+        Assertions.assertThrows(ValidInnerPropertiesAnnotationOnWrongTypeException.class, input::validateProperties);
+    }
+
+    @Test
+    void shouldThrowGetterMethodNotFoundException(){
+        var input = new SomeProblematicInputWithNoGetterMethods();
+        Assertions.assertThrows(UseCaseInput.GetterMethodNotFoundException.class, input::validateProperties);
+    }
+
+    @Test
+    void shouldThrowInternalMappedException(){
+        var input = new SomeProblematicInputWithGetterMethod();
+        Assertions.assertThrows(InternalMappedException.class, input::validateProperties);
+    }
+
+    @Getter
+    @Setter
+    private static class SomeNormalUseCaseInputImplementation extends UseCaseInput{
+
+        @NotEmptyInputField
+        private String fieldWhichMustNotBeEmpty;
+        @NotBlankInputField
+        private String fieldWhichMustNotBeBlank;
+        @NotNullInputField
+        private Integer fieldWhichMustNotBeNull;
+        @ValidInnerPropertiesInputField
+        private SomeNormalInnerUseCaseInput fieldWhichMustHaveItsPropertiesValid;
+
+        public SomeNormalUseCaseInputImplementation(UseCaseExecutionCorrelation useCaseExecutionCorrelation) {
+            super(useCaseExecutionCorrelation);
+        }
+    }
+
+    @Getter
+    @Setter
+    private static class SomeNormalInnerUseCaseInput extends UseCaseInput{
+
+        @NotNullInputField
+        private Integer innerFieldWhichMustNotBeNull;
+
+        public SomeNormalInnerUseCaseInput(UseCaseExecutionCorrelation useCaseExecutionCorrelation) {
+            super(useCaseExecutionCorrelation);
+        }
+    }
+
+    @Getter
+    @Setter
+    private static class SomeProblematicInputWithNotBlankAnnotation extends UseCaseInput{
+
+        @NotBlankInputField
+        private Integer someInteger;
+
+        public SomeProblematicInputWithNotBlankAnnotation() {
+            super(UseCaseExecutionCorrelation.ofNew());
+        }
+    }
+
+    @Getter
+    @Setter
+    private static class SomeProblematicInputWithNotEmptyAnnotation extends UseCaseInput{
+
+        @NotEmptyInputField
+        private Integer someInteger;
+
+        public SomeProblematicInputWithNotEmptyAnnotation() {
+            super(UseCaseExecutionCorrelation.ofNew());
+        }
+    }
+
+    @Getter
+    @Setter
+    private static class SomeProblematicInputWithValidInnerPropertiesAnnotation extends UseCaseInput{
+
+        @ValidInnerPropertiesInputField
+        private Integer someInteger;
+
+        public SomeProblematicInputWithValidInnerPropertiesAnnotation() {
+            super(UseCaseExecutionCorrelation.ofNew());
+        }
+    }
+
+    private static class SomeProblematicInputWithNoGetterMethods extends UseCaseInput{
+
+        public final Integer someFieldWithoutGetter = 1;
+
+        public SomeProblematicInputWithNoGetterMethods() {
+            super(UseCaseExecutionCorrelation.ofNew());
+        }
+    }
+
+    private static class SomeProblematicInputWithGetterMethod extends UseCaseInput{
+
+        @NotNullInputField
+        private Integer fieldWithProblematicGetterMethod;
+
+        public Integer getFieldWithProblematicGetterMethod(){
+            throw new RuntimeException("opsie!");
+        }
+
+        public SomeProblematicInputWithGetterMethod() {
+            super(UseCaseExecutionCorrelation.ofNew());
+        }
+    }
+
+}
