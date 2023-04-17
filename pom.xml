@@ -3,11 +3,29 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <name>Clean Arch Enablers</name>
+    <description>Library for making the process of implementing applications with clean architecture easier</description>
+    <url>https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/main/README.md</url>
     <groupId>br.com.stockio</groupId>
     <artifactId>clean-arch-enablers</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/lucioalmeidastockio/clean-arch-enablers</url>
+    </scm>
+    <developers>
+        <developer>
+            <name>Lucio de Almeida</name>
+            <email>lucio.almeida@stockio.com.br</email>
+            <url>https://github.com/lucioalmeidastockio</url>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
