@@ -15,8 +15,21 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * Any use case that accepts input will require the type of it to be an
+ * inheritor of this class. Once you declare your use case input as an
+ * inheritor of this class, when the use case gets executed it will be able
+ * to call the validateProperties() method of your use case input object
+ * under the hood and check if fields are compliant to their
+ * specifications, so you don't have to implement those kind of validations
+ * yourself.
+ */
 public class UseCaseInput {
 
+    /**
+     * Every use case input instance must have its UseCaseExecutionCorrelation
+     * instance within
+     */
     protected final UseCaseExecutionCorrelation useCaseExecutionCorrelation;
 
     public UseCaseExecutionCorrelation getCorrelation(){

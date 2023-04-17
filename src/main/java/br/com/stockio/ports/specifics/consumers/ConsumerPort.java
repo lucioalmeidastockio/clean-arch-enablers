@@ -7,12 +7,29 @@ import br.com.stockio.trier.Trier;
 import br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;
 import br.com.stockio.use_cases.io.UseCaseInput;
 
+/**
+ * Specific type of port: consumer ports are ports that receive inputs
+ * but don't return anything.
+ * @param <I> input type
+ */
 public abstract class ConsumerPort <I> extends Port {
 
+    /**
+     * Method accessible for triggering the port execution.
+     * @param input its input object
+     * @param correlation the correlation of the use case execution
+     */
     public void executePortOn(I input, UseCaseExecutionCorrelation correlation){
         this.handle(Trier.of(() -> this.executeLogic(input, correlation)));
     }
 
+    /**
+     * Method accessible for triggering the port execution when the
+     * input type is an inheritor of UseCaseInput. In this case, it ain't
+     * necessary to pass the correlation as second parameter as it is
+     * already within the input itself, since it is an instance of UseCaseInput.
+     * @param input its input object when it is same as a UseCaseInput
+     */
     @SuppressWarnings("unchecked")
     public void executePortOn(UseCaseInput input){
         this.handle(Trier.of(() -> this.executeLogic((I) input, input.getCorrelation())));
@@ -23,6 +40,15 @@ public abstract class ConsumerPort <I> extends Port {
                 .andExecuteTheAction();
     }
 
+    /**
+     * This method is supposed to be implemented within the concrete
+     * classes that will be consumer ports. It is in this method that the
+     * port logic is supposed to be contained.
+     * @param input the input to process being passed by one of the
+     *              public methods
+     * @param correlation the correlation ID being passed by one of
+     *              the public methods
+     */
     protected abstract void executeLogic(I input, UseCaseExecutionCorrelation correlation);
 
 }
