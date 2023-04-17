@@ -1,4 +1,5 @@
 <settings>
+
     <servers>
         <server>
             <id>ossrh</id>
@@ -6,6 +7,7 @@
             <password>${SONATYPEPASS}</password>
         </server>
     </servers>
+
     <profiles>
         <profile>
             <id>ossrh</id>
@@ -15,33 +17,9 @@
             <properties>
                 <gpg.executable>gpg</gpg.executable>
                 <gpg.passphrase>${GPGPASS}</gpg.passphrase>
-                <gpg.keyname>${GPGKEYID}</gpg.keyname>
             </properties>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>https://repo.maven.apache.org/maven2</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>central</id>
-                    <url>https://repo.maven.apache.org/maven2</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
         </profile>
     </profiles>
+
 </settings>
 
