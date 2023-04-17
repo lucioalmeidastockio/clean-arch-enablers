@@ -9,9 +9,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * When set to run on some phase of your building process (e.g. Maven, etc.)
+ * the public methods of this class will save each use case metadata
+ * in a txt file at the /target folder. It is up to you what to do with
+ * that file: real-time-up-to-date use case catalog of your applications
+ * could be a nice way of using it.
+ */
 public class UseCaseRegisterer {
     private final BufferedWriter fileWriter;
 
+    /**
+     * Will save each use case metadata in the txt file at /target folder
+     * @param useCases use case instances
+     */
     public static void runOnUseCases(List<UseCase> useCases) {
         var registerer = UseCaseRegisterer.defaultInstance();
         useCases.stream()
@@ -19,6 +30,11 @@ public class UseCaseRegisterer {
                 .forEach(registerer::externalizeUseCase);
         registerer.endRegistering();
     }
+
+    /**
+     * Will save each use case metadata in the txt file at /target folder
+     * @param useCasesMetadata use case metadata instances
+     */
     public static void runOnUseCasesMetadata(List<UseCaseMetadata> useCasesMetadata) {
         var registerer = UseCaseRegisterer.defaultInstance();
         useCasesMetadata.forEach(registerer::externalizeUseCase);

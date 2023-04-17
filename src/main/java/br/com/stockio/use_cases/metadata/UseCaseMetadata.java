@@ -2,16 +2,51 @@ package br.com.stockio.use_cases.metadata;
 
 import br.com.stockio.use_cases.UseCase;
 
+/**
+ * The metadata of use cases such as name, description and protection status.
+ * <p></p>
+ * The name of use cases will be set in snake case.
+ * <p></p>
+ * Their descriptions are for providing a brief but comprehensible
+ * overview about their essence.
+ * <p></p>
+ * The protection status is meant to inform if the use case execution
+ * access is open or protected. If protected, it is up to the external layer
+ * dispatching the use case to implement the access validation
+ * to decide weather the action will be allowed or not.
+ * <p></p>
+ * All of this metadata can be externalized to a txt file at
+ * /target if the use case registerer is set to be used.
+ * It is up to you to decide what to do with the txt file. For
+ * instance, it could be used to expose an overview about the
+ * available use cases of the application for governance means.
+ */
 public class UseCaseMetadata {
 
     private final String name;
     private final Boolean isProtected;
     private final String description;
 
+    /**
+     * Instantiates the use case metadata with the protected status set to true,
+     * which means it will be considered that the use case is not set to open access.
+     * @param useCaseType the use case class
+     * @param description the use case description
+     * @return the use case metadata instance
+     * @param <U> the use case type
+     */
     public static  <U extends UseCase> UseCaseMetadata ofProtectedUseCase(Class<U> useCaseType, String description){
         return new UseCaseMetadata(useCaseType, description, true);
     }
 
+    /**
+     * Instantiates the use case metadata with the protected status set to false,
+     * which means it will be considered that the use case is set to open access.
+     * @param useCaseType the use case class
+     * @param description the use case description
+     * @return the use case metadata instance
+     * @param <U> the use case type
+     */
     public static <U extends UseCase> UseCaseMetadata ofOpenAccessUseCase(Class<U> useCaseType, String description){
         return new UseCaseMetadata(useCaseType, description, false);
     }
