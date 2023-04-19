@@ -6,13 +6,13 @@ This lib is meant to make implementing apps with clean arch easier. :pinched_fin
 
 🤕 Implementing clean architectured systems might require the construction of many components from scratch only for providing a foundation which the actual application will be developed upon. This consumes time and effort, a lot. 
 
-💡 Turns out all boilerplate code is very repetitive when you reach a matured architecture of components! So it would be nice to be able to just abstract it away into a layer with all the boilerplate only done once and then just reuse it whenever and wherever needed, on any project, right? Nice indeed... and now possible!
+💡 Turns out all boilerplate code is very repetitive when you reach a matured architecture of components! So it would be nice to be able to abstract it away into a layer with all the boilerplate done only once and then just reuse it whenever and wherever needed, on any project, right? Nice indeed... and now possible!
 
 <br>
 
 ## Introducing the _clean_arch_enablers_ library! 🎆
 
-The main idea of clean arch is to shield the logical core of a system from the external and _nothing-to-do-with-the-business_ components that are still necessary for building the application. The way of doing that is designing the system with those external components being loosely coupled to the heart of it. 
+The main idea of clean arch is to shield the logical core of a system from the external and _nothing-to-do-with-the-business_ components that still are necessary for building the application anyways. The way of doing that is designing the system with those external components being loosely coupled to the heart of it. 
 
 <br>
 
