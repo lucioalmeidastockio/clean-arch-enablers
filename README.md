@@ -34,10 +34,12 @@ The main components at a high level of abstraction are:
 
 The _clean_arch_enablers_ takes place at the Core layer, so let's dive into the specifics of it:
 
-Inside the Core layer we will find a whole catalog of business rules. It is there where all the logic of the application might live at. This means every business entity should be found there, with each respective functionality. Additionally, these functionalities must be provided somehow to the external world, otherwise it wouldn't make sense to build the application at all. This is where the _Use Case_ component comes into play.
+Inside the Core layer we will find a whole catalog of business rules. It is there where all the logic of the application might live at. This means every business entity should be found there, with their respective functionalities. Additionally, these functionalities must be provided somehow to the external world, otherwise it wouldn't make sense to build the application at all. This is where the _Use Case_ component comes into play.
 
 <br>
 
 ![introducing use case components](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/diving-into-core-layer-pt1.png)
 
 <br>
+
+Without use cases there is no application at all. They are the motive behind the project itself. It is when you realize you need an aplication _to do something_ that it becomes clear the necessity of having that application created. Those expected "actions" are what we call by _Use Cases_ in this lib. The _Use Case_ component in clean arch is responsible for gathering all entity functionalities needed in a specific application use case.
