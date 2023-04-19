@@ -1,8 +1,37 @@
-# :coffee: clean-arch-enablers
+# ☕ clean-arch-enablers
 This lib is meant to make implementing apps with clean arch easier. :pinched_fingers:
 <br>
 
-## :thinking: - Why?
-:face_with_head_bandage: Implementing clean architectured systems might require the construction of many components from scratch only for providing a foundation which the actual application will be developed upon. This consumes time and effort, a lot. 
+## Why bother? 🤔
 
-:bulb: Turns out all the boilerplate code is very repetitive when you reach a matured architecture of components (use cases, ports and so on). So it would be nice to be able to just abstract it away into a layer with all the boilerplate only once and then just reuse it whenever it'd be needed, on any project.
+🤕 Implementing clean architectured systems might require the construction of many components from scratch only for providing a foundation which the actual application will be developed upon. This consumes time and effort, a lot. 
+
+💡 Turns out all boilerplate code is very repetitive when you reach a matured architecture of components! So it would be nice to be able to just abstract it away into a layer with all the boilerplate only done once and then just reuse it whenever and wherever needed, on any project, right? Nice indeed... and now possible!
+
+<br>
+
+## Introducing the _clean_arch_enablers_ library! 🎆
+
+The main idea of clean arch is to shield the logical core of a system from the external and _nothing-to-do-with-the-business_ components that are still necessary for building the application. The way of doing that is designing the system with those external components being loosely coupled to the heart of it. 
+
+<br>
+
+![high-level-clean-arch-components](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/high-level-clean-arch-components.png)
+
+<br>
+
+The main components at a high level of abstraction are:
+
+- ### Core layer (_specif implementations of use-case-business-rules, not depending on technologies_)
+  - #### 🚪Ports — _Slots to put external components in without making the core layer know which specific technologies were used at the outside-of-the-business-rules level_
+
+<br>
+
+- ### External layer (_specific implementations of technologies needed for the application to run properly_)
+  - #### 🔌Adapters — _Responsible for coupling the external components and injecting itself into the respective Port_  
+
+<br>
+
+The _clean_arch_enablers_ takes place at the Core layer, so let's dive into that specif layer:
+
+Inside the Core layer we will find a repository of business rules, it is there where all of the logic of the application might live in. This means every business entity (domain, models, etc.) shoud be found in that layer, containing each respective functionality. These functionalities must be provided somehow to the external world, otherwise it wouldn't make sense to build the application at all.
