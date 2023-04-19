@@ -29,7 +29,7 @@ The main components at a high level of abstraction are:
 <br>
 
 - ### External layer (_specific implementations of technologies needed for the application to run properly_)
-  - #### 🔌Adapters — _Responsible for coupling the external components and injecting itself into the respective Port_  
+  - #### 🔌Adapters — _Responsible for coupling the external components and injecting themselves into their respective Ports_  
 - - - -
 
 The _clean_arch_enablers_ takes place at the Core layer, so let's dive into the specifics of it:
