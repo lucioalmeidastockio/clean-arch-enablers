@@ -22,6 +22,7 @@ The main idea of clean arch is to shield the logical core of a system from the e
 
 The main components at a high level of abstraction are:
 
+- - - -
 - ### Core layer (_specific implementations of use-case-business-rules, not depending on technologies_)
   - #### 🚪Ports — _Slots to put external components in without making the core layer know which specific technologies were used at the outside-of-the-business-rules level_
 
@@ -29,9 +30,9 @@ The main components at a high level of abstraction are:
 
 - ### External layer (_specific implementations of technologies needed for the application to run properly_)
   - #### 🔌Adapters — _Responsible for coupling the external components and injecting itself into the respective Port_  
+- - - -
 
-<br>
+The _clean_arch_enablers_ takes place at the Core layer, so let's dive into the specifics of it:
 
-The _clean_arch_enablers_ takes place at the Core layer, so let's dive into that specif layer:
+Inside the Core layer we will find a whole catalog of business rules. It is there where all the logic of the application might live at. This means every business entity should be found there, with each respective functionality. Additionally, these functionalities must be provided somehow to the external world, otherwise it wouldn't make sense to build the application at all... that is where the Use Case component comes into play.
 
-Inside the Core layer we will find a repository of business rules, it is there where all of the logic of the application might live in. This means every business entity (domain, models, etc.) shoud be found in that layer, containing each respective functionality. These functionalities must be provided somehow to the external world, otherwise it wouldn't make sense to build the application at all.
