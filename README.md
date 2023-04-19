@@ -43,3 +43,5 @@ Inside the Core layer we will find a whole catalog of business rules. It is ther
 <br>
 
 Without use cases there is no application at all. They are the motive behind the project itself. It is when you realize you need an aplication _to do something_ that it becomes clear the necessity of having that application created. Those expected "actions" are what we call by _Use Cases_ in this lib. The _Use Case_ component in clean arch is responsible for gathering all entity functionalities needed in a specific application use case.
+
+It is through the _Use Cases_ that we expose what the Core layer can do. In another words, _Use Cases_ compose the Core API. Some call this by the name of _Primary Ports_, in this lib we just call it by _Use Cases_.
