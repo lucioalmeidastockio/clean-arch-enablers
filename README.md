@@ -22,7 +22,7 @@ The main idea of clean arch is to shield the logical core of a system from the e
 
 The main components at a high level of abstraction are:
 
-- ### Core layer (_specif implementations of use-case-business-rules, not depending on technologies_)
+- ### Core layer (_specific implementations of use-case-business-rules, not depending on technologies_)
   - #### 🚪Ports — _Slots to put external components in without making the core layer know which specific technologies were used at the outside-of-the-business-rules level_
 
 <br>
