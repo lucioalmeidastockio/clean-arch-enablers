@@ -13,7 +13,7 @@ public abstract class Port {
      * by ID within some use case implementation, accessing a database
      * or an API for that purpose, you would call a port from there instead
      * of calling the finding-by-id method implementation. The name of
-     * the class would set here, in this attribute, based on the class name
+     * the class would be set here, in this attribute, based on the class name
      * itself.
      */
     protected final String name;
