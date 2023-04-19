@@ -62,11 +62,14 @@ A Use Case in this lib is a component which has:
 - An `execute` method
   - Public method to be called when intended to execute the use case. It internally calls the method which has the implementation of the specifc use case instance.
   - Some types of Use Case have no input, some have no output, some have both and some have none. Each type will be mentioned further down this documentation.
-  - If the Use Case type accepts inputs, the input type must extend the [UseCaseInput](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/use_cases/io/UseCaseInput.java) type, so the UseCase can call the `validateProperties` method from the UseCaseInput type, and validate the input before passing it down to its internal logic execution.
+  - If the Use Case type accepts inputs, the input type must extend the [UseCaseInput](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/use_cases/io/UseCaseInput.java) type, so the UseCase can call the `validateProperties` method from the UseCaseInput type, which validates the input object before passing it down to its internal logic execution.
+  - Regardless of the specific type of the Use Case (if it has specific input, output, etc.), each one of them receives an object of Correlation, which serves the purpose of tracking each execution with an unique ID.
+  - It calls the specific Use Case type Processor, so the execution lifecycle is tracked by a unique log message that is built from the starting moment to the ending moment of the execution, and includes exception messages if any is thrown.
 
 <br>
 
 - An `applyInternalLogic` method
   - Internal method to be called when the `execute` method is externally called. 
   - Its implementation is provided by the UseCase specific implementation class.
-  - Not meant to be called outside of the UseCase types
+  - Not meant to be called outside of the UseCase types.
+  - The Logger instance will be available within its scope, so feel free to use it as you wish.
