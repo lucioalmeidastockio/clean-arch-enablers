@@ -68,3 +68,5 @@ A Use Case in this lib is a component which has:
 
 - An `applyInternalLogic` method
   - Internal method to be called when the `execute` method is externally called. 
+  - Its implementation is provided by the UseCase specific implementation class.
+  - Not meant to be called outside of the UseCase types
