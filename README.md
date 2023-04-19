@@ -12,7 +12,7 @@ Nice indeed... and now possible!
 
 ## Introducing the _clean_arch_enablers_ library! 🎆
 
-The main idea of clean arch is to shield the logical core of a system from the external and _nothing-to-do-with-the-business_ components that still are necessary for building the application anyways. The way of doing that is designing the system with those external components being loosely coupled to the heart of it. 
+The main idea of clean arch is to shield the logical core of a system from the _nothing-to-do-with-the-business_ components that still are necessary for building the application anyways. The way of doing that is designing the system with those external components being loosely coupled to the heart of it. 
 
 <br>
 
