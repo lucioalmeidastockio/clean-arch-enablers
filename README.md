@@ -6,7 +6,7 @@ This lib is meant to make implementing apps with clean arch easier. :pinched_fin
 
 🤕 Implementing clean architectured systems might require the construction of many components from scratch only for providing a foundation which the actual application will be developed upon. This consumes time and effort, a lot. 
 
-💡 Turns out all boilerplate code is very repetitive when you reach a matured architecture of components! So wouldn't it be nice to be able to abstract it away into a layer with all the boilerplate done only once and then just reuse it whenever and wherever needed, on any project? 
+💡 Turns out all boilerplate code is very repetitive when you reach a matured architecture of components! So wouldn't it be nice to be able to abstract it away into a layer with all the boilerplate done only once and then just reusing it whenever and wherever needed, on any project? 
 
 It would be nice indeed... and now it _is_ possible!
 
