@@ -19,7 +19,7 @@ The main idea of clean arch is to shield the logical core of a system from the _
 
 <br>
 
-![high-level-clean-arch-components](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/high-level-clean-arch-components.png)
+![high-level-clean-arch-components](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/doc_images/high-level-clean-arch-components.png)
 
 <br>
 
@@ -41,7 +41,7 @@ Inside the Core layer we will find a whole catalog of business rules. It is ther
 
 <br>
 
-![introducing use case components](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/diving-into-core-layer-pt1.png)
+![introducing use case components](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/doc_images/diving-into-core-layer-pt1.png)
 
 ### Use Case is King :crown:
 
@@ -84,7 +84,7 @@ A Use Case in this lib is a component which has:
   
 #### As subtypes
 
-![use case subtypes](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/use-case-subtypes.png)
+![use case subtypes](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/doc_images/use-case-subtypes.png)
 
 ### :gear: FunctionUseCase: has input and output types. 
 > Its input type must extend the UseCaseInput type, so the its public `execute` method can call the input's `validateProperties` method. Besides that, the UseCaseInput type already has a required field: the UseCaseExecutionCorrelation, which is a type that has a UUID value, intended to represent each unique Use Case execution.
@@ -122,7 +122,7 @@ Those subtypes follow the same logic as the UseCase subtypes, except for it is n
 
 When a Use Case or a Port is executed, the [Trier](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/trier/Trier.java) component is internally used for the action execution. The Trier component does the work of a try-catch with some specifics:
 
-![trier-flow](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/trier-flow.png)
+![trier-flow](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/doc_images/trier-flow.png)
 
 If the exception being thrown during a Trier execution extends [MappedException](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/mapped_exceptions/MappedException.java), the Trier will consider it as part of the expected flow that you've designed, so it will let it go. On the other hand, if the exception does not extend the MappedException type, Trier will consider it a breach and catch it, passing it to the parameterized handler specified at the Trier instantiation phase.
 
@@ -137,7 +137,7 @@ Both of them are types that extend MappedException.
 
 #### MappedException subtypes
 
-![mapped exception types](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/mapped-exceptions.png)
+![mapped exception types](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/doc_images/mapped-exceptions.png)
 
 > :grey_exclamation: If you are developing a REST API with Springboot, for example, you could use your _@ControllerAdvice_ to map with the _@ExceptionHandler_ methods the NotFoundMappedException to return a 404 status code, the InputMappedException to return a 400 status code, and the InternalMappedException to return a 500. This way any exception extending the NotFoundMappedException would automatically return a 404, the ones extending the InputMappedException would return a 400 and the InternalMappedException ones a 500. No need to specify each specific type _(UserNotFoundException, CreditCardNotFoundException, etc.)_ unless there is a good reason for it.
 
