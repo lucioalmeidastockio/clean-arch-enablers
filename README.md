@@ -73,3 +73,22 @@ A Use Case in this lib is a component which has:
   - Its implementation is provided by the UseCase specific implementation class.
   - Not meant to be called outside of the UseCase types.
   - The Logger instance will be available within its scope, so feel free to use it as you wish.
+  
+<br>
+  
+#### Subtypes
+  - FunctionUseCase<I extends UseCaseInput, O>: has input and output types. 
+    - Its input type must extend the UseCaseInput type, so the its public `execute` method can call the input's `validateProperties` method. Besides that, the UseCaseInput type already has a required field: the UseCaseExecutionCorrelation, which is a type that has a UUID value, intended to represent each unique Use Case execution.
+  <br>
+  
+  - ConsumerUseCase<I extends UseCaseInput>: has only input type, no output type. 
+    - Its input type must also extend the UseCaseInput type, for the same reasons as the FunctionUseCase type.
+  <br>
+  
+  - SupplierUseCase<O>: has only output type, no input type. 
+    - Even though there won't be a UseCaseInput, it receives an instance of UseCaseExecutionCorrelation for you to have the ability to track each execution.
+  <br>
+  
+  - RunnableUseCase: has neither input nor output types. 
+    - Even though there won't be a UseCaseInput, it is like the SupplierUseCase.
+  <br>
