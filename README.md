@@ -1,6 +1,7 @@
 # ☕ clean-arch-enablers
 This lib is meant to make implementing apps with clean arch easier. :pinched_fingers:
 <br>
+<br>
 
 ## Why bother? 🤔
 
@@ -9,6 +10,8 @@ This lib is meant to make implementing apps with clean arch easier. :pinched_fin
 💡 Turns out all boilerplate code is very repetitive when you reach a matured architecture of components! So wouldn't it be nice to be able to abstract it away into a layer with all the boilerplate done only once and then just reusing it whenever and wherever needed, on any project? 
 
 It would be nice indeed... and now it _is_ possible!
+
+<br>
 
 ## Introducing the _clean_arch_enablers_ library! 🎆
 
@@ -115,9 +118,9 @@ Those subtypes follow the same logic as the UseCase subtypes, except for it is n
 - A method which receives as parameters the input you specified at the generics plus the UseCaseExecutionCorrelation object (it might be needed if you want to pass it down to other APIs via HTTP calls)
 - A method which receives as its parameter the input you specified when that type extends the UseCaseInput type. When that is the case, as the UseCaseInput type must already have the UseCaseExecutionCorrelation instance, it ain't necessary to pass it as a different parameter, since it will be accessible from the main input instance.
 
-## Trier and Mapped Exceptions
+## Trier and Mapped Exceptions :arrow_forward: :stop_button:
 
-When a Use Case or a Port is executed, the [Trier](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/trier/Trier.java) component is internally used for the action itself. The Trier component does the work of a try-catch with some specifics:
+When a Use Case or a Port is executed, the [Trier](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/trier/Trier.java) component is internally used for the action execution. The Trier component does the work of a try-catch with some specifics:
 
 ![trier-flow](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/trier-flow.png)
 
