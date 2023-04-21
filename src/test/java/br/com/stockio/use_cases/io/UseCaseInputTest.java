@@ -1,5 +1,6 @@
 package br.com.stockio.use_cases.io;
 
+import br.com.stockio.mapped_exceptions.MappedException;
 import br.com.stockio.mapped_exceptions.specifics.InternalMappedException;
 import br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;
 import br.com.stockio.use_cases.io.annotations.NotBlankInputField;
@@ -14,6 +15,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 class UseCaseInputTest {
@@ -93,6 +96,12 @@ class UseCaseInputTest {
     void shouldThrowInternalMappedException(){
         var input = new SomeProblematicInputWithGetterMethod();
         Assertions.assertThrows(InternalMappedException.class, input::validateProperties);
+    }
+
+    @Test
+    void shouldThrowAtLeastOneOfTheFieldsIsSupposedToBeFilledException(){
+        var inputWithArbitraryValidationRules = new SomeUseCaseInputThatImplementsArbitrarilyValidationRules();
+        Assertions.assertThrows(SomeUseCaseInputThatImplementsArbitrarilyValidationRules.AtLeastOneOfTheFieldsIsSupposedToBeFilledException.class, inputWithArbitraryValidationRules::validateProperties);
     }
 
     @Getter
@@ -181,6 +190,30 @@ class UseCaseInputTest {
 
         public SomeProblematicInputWithGetterMethod() {
             super(UseCaseExecutionCorrelation.ofNew());
+        }
+    }
+
+    @Getter
+    @Setter
+    private static class SomeUseCaseInputThatImplementsArbitrarilyValidationRules extends UseCaseInput{
+
+        private Integer someField;
+        private Integer someOtherField;
+
+        public SomeUseCaseInputThatImplementsArbitrarilyValidationRules() {
+            super(UseCaseExecutionCorrelation.ofNew());
+        }
+
+        @Override
+        public void validatePropertiesArbitrarily(){
+            if (Optional.ofNullable(this.someField).isEmpty() && Optional.ofNullable(this.someOtherField).isEmpty())
+                throw new AtLeastOneOfTheFieldsIsSupposedToBeFilledException();
+        }
+
+        public static class AtLeastOneOfTheFieldsIsSupposedToBeFilledException extends MappedException {
+            public AtLeastOneOfTheFieldsIsSupposedToBeFilledException() {
+                super("At least one of the input fields was supposed to be filled");
+            }
         }
     }
 
