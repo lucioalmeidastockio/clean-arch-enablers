@@ -118,6 +118,16 @@ Those subtypes follow the same logic as the UseCase subtypes, except for it is n
 - A method which receives as parameters the input you specified at the generics plus the UseCaseExecutionCorrelation object (it might be needed if you want to pass it down to other APIs via HTTP calls)
 - A method which receives as its parameter the input you specified when that type extends the UseCaseInput type. When that is the case, as the UseCaseInput type must already have the UseCaseExecutionCorrelation instance, it ain't necessary to pass it as a different parameter, since it will be accessible from the main input instance.
 
+## Use Case Inputs
+UseCaseInput is the required type to be the input of any use case. It is because of this any UseCase type instance will then be able to call the `validateProperties` methods from it, which will validate if the non-null fields are not null indeed and so on. The current available types of validation supported are:
+
+- @NotBlankInputField (only valid on String fields)
+- @NotEmptyInputField (only valid on String fields)
+- @NotNullInputField (valid on any type of field)
+- @ValidInnerPropertiesInputField (valid on fields of type UseCaseInput as well, which will perform the validation recursively)
+
+This way the most common input validations are handled before the internal logic of the use case is reached, letting it be cleaner than otherwise.
+
 ## Trier and Mapped Exceptions :arrow_forward: :stop_button:
 
 When a Use Case or a Port is executed, the [Trier](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/trier/Trier.java) component is internally used for the action execution. The Trier component does the work of a try-catch with some specifics:
