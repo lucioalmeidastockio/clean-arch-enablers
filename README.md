@@ -115,10 +115,26 @@ Those subtypes follow the same logic as the UseCase subtypes, except for it is n
 - A method which receives as parameters the input you specified at the generics plus the UseCaseExecutionCorrelation object (it might be needed if you want to pass it down to other APIs via HTTP calls)
 - A method which receives as its parameter the input you specified when that type extends the UseCaseInput type. When that is the case, as the UseCaseInput type must already have the UseCaseExecutionCorrelation instance, it ain't necessary to pass it as a different parameter, since it will be accessible from the main input instance.
 
-### Trier and Mapped Exceptions
+## Trier and Mapped Exceptions
 
 When a Use Case or a Port is executed, the [Trier](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/trier/Trier.java) component is internally used for the action itself. The Trier component does the work of a try-catch with some specifics:
 
 ![trier-flow](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/trier-flow.png)
 
+If the exception being thrown during a Trier execution extends [MappedException](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/mapped_exceptions/MappedException.java), the Trier will consider it as part of the expected flow that you've designed, so it will let it go. On the other hand, if the exception does not extend the MappedException type, Trier will consider it a breach and catch it, passing it to the parameterized handler specified at the Trier instantiation phase.
+
+The handler is only for in cases of unexpected exceptions being thrown during the execution. The handler must follow the functional interface of [UnexpectedExceptionHandler](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/trier/UnexpectedExceptionHandler.java), which is the contract of accepting an Exception instance and returning a MappedException instance.
+
+You can use it wherever you want in your code. The Use Case and Port types use it, and in case something goes unexpectedly wrong during their execution, they will throw respectively:
+- :stop_sign: [UseCaseExecutionException](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/use_cases/exceptions/UseCaseExecutionException.java)
+- :stop_sign: [PortExecutionException](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/ports/exceptions/PortExecutionException.java)
+<br>
+
+Both of them are types that extend MappedException.
+
+#### MappedException subtypes
+
+![mapped exception types](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/mapped-exceptions.png)
+
+If you are developing a REST API with Springboot, for example, you could use your _@ControllerAdvice_ to map with the _@ExceptionHandler_ methods the NotFoundMappedException to return a 404 status code, the InputMappedException to return a 400 status code, and the InternalMappedException to return a 500.
 
