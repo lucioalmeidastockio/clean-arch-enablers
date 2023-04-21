@@ -108,6 +108,8 @@ Ports, just like UseCases, also have 4 different types:
 ### :door: SupplierPort
 ### :door: RunnablePort
 
+<br>
+
 Those subtypes follow the same logic as the UseCase subtypes, except for it is not necessary for port input types to extend the UseCaseInput type. There is, though, an overload with the public port execution method in case of the port accepting custom input types:
 
 - A method which receives as parameters the input you specified at the generics plus the UseCaseExecutionCorrelation object (it might be needed if you want to pass it down to other APIs via HTTP calls)
