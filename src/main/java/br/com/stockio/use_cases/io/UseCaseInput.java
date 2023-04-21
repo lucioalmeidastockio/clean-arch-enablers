@@ -44,6 +44,7 @@ public class UseCaseInput {
         try {
             if (this.useCaseExecutionCorrelation == null)
                 throw new NullUseCaseExecutionCorrelationException(this.getClass().getSimpleName());
+            this.validatePropertiesArbitrarily();
             var fields = this.getClass().getDeclaredFields();
             for (var field : fields) {
                 var getterMethod = this.getGetterMethodOf(field);
@@ -58,6 +59,12 @@ public class UseCaseInput {
             throw new InternalMappedException("Something went wrong while trying to validate properties of use case input object.",  "More details: " + e + "  | correlation ID:  " + this.useCaseExecutionCorrelation);
         }
     }
+
+    /**
+     * Meant for client code to override if necessary to implement
+     * arbitrarily validation rules in the instance
+     */
+    protected void validatePropertiesArbitrarily(){}
 
     private Method getGetterMethodOf(Field field) {
         return Arrays.stream(this.getClass().getMethods())
