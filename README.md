@@ -90,5 +90,19 @@ A Use Case in this lib is a component which has:
   <br>
   
   - RunnableUseCase: has neither input nor output types. 
-    - Even though there won't be a UseCaseInput, it is like the SupplierUseCase.
+    - It is the same as the SupplierUseCase, but with no outputs.
   <br>
+
+Whenever a UseCase instance needs to use some functionality which is intrinsically technical, that meaning being not related to the business rules, as in a database access for example, this instance might use Ports to get an abstraction layer for that need.
+
+Ports, just like UseCases, also have 4 different types:
+
+- FunctionPort
+- ConsumerPort
+- SupplierPort
+- RunnablePort
+
+Those subtypes follow the same logic as the UseCase subtypes, except for it is not necessary for port input types to extend the UseCaseInput type. There is, though, an overload with the public port execution method in case of the port accepting custom input types:
+
+- A method which receives as parameters the input you specified at the generics plus the UseCaseExecutionCorrelation object (it might be needed if you want to pass it down to other APIs via HTTP calls)
+- A method which receives as its parameter the input you specified when that type extends the UseCaseInput type. When that is the case, as the UseCaseInput type must already have the UseCaseExecutionCorrelation instance, it ain't necessary to pass it as a different parameter, since it will be accessible from the main input instance.
