@@ -102,7 +102,7 @@ A Use Case in this lib is a component which has:
 > It is the same as the SupplierUseCase, but with no outputs.
 <br>
 
-Whenever a UseCase instance needs to use some functionality which is intrinsically technical, that meaning being not related to the business rules, as in a database access for example, this instance might use Ports to get an abstraction layer for that need.
+Whenever a UseCase instance needs to use some functionality which is exclusively technical, meaning being not related to the business rules, (as in a database access for example), this instance might use Ports to get an abstraction layer for that need.
 
 Ports, just like UseCases, also have 4 different types:
 
