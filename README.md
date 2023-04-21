@@ -48,6 +48,7 @@ It is through the _Use Cases_ that we expose what the Core layer can do. In anot
 
 A Use Case in this lib is a component which has:
 
+
 #### As attributes
 - [Metadata](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/use_cases/metadata/UseCaseMetadata.java)
   - Name — automatically set by the name of the class extending the Use Case type
@@ -57,6 +58,8 @@ A Use Case in this lib is a component which has:
 <br>
 
 - [Logger](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/src/main/java/br/com/stockio/loggers/Logger.java) (_an architectural border for you to implement using your preferred logging provider, being able to use it inside your core application without making the core layer coupled to it_)
+
+<br>
 
 #### As behaviors
 - An `execute` method
@@ -77,19 +80,22 @@ A Use Case in this lib is a component which has:
 <br>
   
 #### As subtypes
-  - FunctionUseCase: has input and output types. 
+
+![use case subtypes](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/use-case-subtypes.png)
+
+  - :gear: FunctionUseCase: has input and output types. 
     - Its input type must extend the UseCaseInput type, so the its public `execute` method can call the input's `validateProperties` method. Besides that, the UseCaseInput type already has a required field: the UseCaseExecutionCorrelation, which is a type that has a UUID value, intended to represent each unique Use Case execution.
   <br>
   
-  - ConsumerUseCase: has only input type, no output type. 
+:gear: ConsumerUseCase: has only input type, no output type. 
     - Its input type must also extend the UseCaseInput type, for the same reasons as the FunctionUseCase type.
   <br>
   
-  - SupplierUseCase: has only output type, no input type. 
+:gear: SupplierUseCase: has only output type, no input type. 
     - Even though there won't be a UseCaseInput, it receives an instance of UseCaseExecutionCorrelation for you to have the ability to track each execution.
   <br>
   
-  - RunnableUseCase: has neither input nor output types. 
+:gear: RunnableUseCase: has neither input nor output types. 
     - It is the same as the SupplierUseCase, but with no outputs.
   <br>
 
@@ -97,10 +103,10 @@ Whenever a UseCase instance needs to use some functionality which is intrinsical
 
 Ports, just like UseCases, also have 4 different types:
 
-- FunctionPort
-- ConsumerPort
-- SupplierPort
-- RunnablePort
+:door: FunctionPort
+:door: ConsumerPort
+:door: SupplierPort
+:door: RunnablePort
 
 Those subtypes follow the same logic as the UseCase subtypes, except for it is not necessary for port input types to extend the UseCaseInput type. There is, though, an overload with the public port execution method in case of the port accepting custom input types:
 
