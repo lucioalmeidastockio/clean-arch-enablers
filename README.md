@@ -76,7 +76,7 @@ A Use Case in this lib is a component which has:
   
 <br>
   
-#### Subtypes
+#### As subtypes
   - FunctionUseCase: has input and output types. 
     - Its input type must extend the UseCaseInput type, so the its public `execute` method can call the input's `validateProperties` method. Besides that, the UseCaseInput type already has a required field: the UseCaseExecutionCorrelation, which is a type that has a UUID value, intended to represent each unique Use Case execution.
   <br>
