@@ -195,3 +195,16 @@ public class UseCasesExternalizer {
 </build>
 ```
 In the example above, everytime the `mvn install` runs in that project, it will generate a txt file within the target folder with all the use case metadata. It is up to the project owner what to do with that externalized data.
+
+## Setting your project to use the clean-arch-enablers library :ok_hand:
+Go to your pom.xml file and add the following dependency:
+
+```
+<dependency>
+    <groupId>br.com.stockio</groupId>
+    <artifactId>clean-arch-enablers</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+Run mvn clean install and be happy.
