@@ -203,7 +203,7 @@ Go to your pom.xml file and add the following dependency:
 <dependency>
     <groupId>br.com.stockio</groupId>
     <artifactId>clean-arch-enablers</artifactId>
-    <version>1.0.0</version>
+    <version>{version}</version>
 </dependency>
 ```
 
