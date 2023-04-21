@@ -84,20 +84,20 @@ A Use Case in this lib is a component which has:
 ![use case subtypes](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/use-case-subtypes.png)
 
 ### :gear: FunctionUseCase: has input and output types. 
-    Its input type must extend the UseCaseInput type, so the its public `execute` method can call the input's `validateProperties` method. Besides that, the UseCaseInput type already has a required field: the UseCaseExecutionCorrelation, which is a type that has a UUID value, intended to represent each unique Use Case execution.
-  <br>
+Its input type must extend the UseCaseInput type, so the its public `execute` method can call the input's `validateProperties` method. Besides that, the UseCaseInput type already has a required field: the UseCaseExecutionCorrelation, which is a type that has a UUID value, intended to represent each unique Use Case execution.
+<br>
   
 ### :gear: ConsumerUseCase: has only input type, no output type. 
-    Its input type must also extend the UseCaseInput type, for the same reasons as the FunctionUseCase type.
-  <br>
+Its input type must also extend the UseCaseInput type, for the same reasons as the FunctionUseCase type.
+<br>
   
 ### :gear: SupplierUseCase: has only output type, no input type. 
-    Even though there won't be a UseCaseInput, it receives an instance of UseCaseExecutionCorrelation for you to have the ability to track each execution.
-  <br>
+Even though there won't be a UseCaseInput, it receives an instance of UseCaseExecutionCorrelation for you to have the ability to track each execution.
+<br>
   
 ### :gear: RunnableUseCase: has neither input nor output types. 
-    It is the same as the SupplierUseCase, but with no outputs.
-  <br>
+It is the same as the SupplierUseCase, but with no outputs.
+<br>
 
 Whenever a UseCase instance needs to use some functionality which is intrinsically technical, that meaning being not related to the business rules, as in a database access for example, this instance might use Ports to get an abstraction layer for that need.
 
