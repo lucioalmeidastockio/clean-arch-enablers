@@ -8,7 +8,7 @@ This lib is meant to make implementing apps with clean arch easier. :pinched_fin
 
 💡 Turns out all boilerplate code is very repetitive when you reach a matured architecture of components! So wouldn't it be nice to be able to abstract it away into a layer with all the boilerplate done only once and then just reuse it whenever and wherever needed, on any project? 
 
-Nice indeed... and now possible!
+It would be nice indeed... and now it _is_ possible!
 
 ## Introducing the _clean_arch_enablers_ library! 🎆
 
