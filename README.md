@@ -151,3 +151,47 @@ Both of them are types that extend MappedException.
 
 > :grey_exclamation: If you are developing a REST API with Springboot, for example, you could use your _@ControllerAdvice_ to map with the _@ExceptionHandler_ methods the NotFoundMappedException to return a 404 status code, the InputMappedException to return a 400 status code, and the InternalMappedException to return a 500. This way any exception extending the NotFoundMappedException would automatically return a 404, the ones extending the InputMappedException would return a 400 and the InternalMappedException ones a 500. No need to specify each specific type _(UserNotFoundException, CreditCardNotFoundException, etc.)_ unless there is a good reason for it.
 
+## Use Case Externalizer
+It is possible to set your pom.xml file to externalize all your use cases metadata to a text file located at your target directory every time a chosen maven phase runs. That might be useful if you use it to register each use case metadata record in a database during the deployment pipeline execution, to keep a use case catalog up to date in real time when new versions of your Core app are deployed.
+
+For that, follow the steps:
+
+1. Create a class with a main method only for calling the UseCaseRegisterer class
+
+```
+public class UseCasesExternalizer {
+
+    public static void main(String[] args)  {
+        UseCaseRegisterer.runOn(AvailableUseCases.getInstances());
+   }
+
+}
+
+```
+
+2. Set your pom.xml to execute the class you created during some Maven phase
+
+```
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+                <execution>
+                    <phase>install</phase> <---- it makes it run at the 'mvn install' phase
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                    <configuration>
+                        <mainClass>your.package.name.YourClassWhichCallsTheUseCaseRegisterer</mainClass>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        ...
+    </plugins>
+</build>
+```
+In the example above, everytime the `mvn install` runs in that project, it will generate a txt file within the target folder with all the use case metadata. It is up to the project owner what to do with that externalized data.
