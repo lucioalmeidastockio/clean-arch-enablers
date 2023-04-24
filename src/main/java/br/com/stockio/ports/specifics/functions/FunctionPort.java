@@ -4,7 +4,6 @@ import br.com.stockio.ports.Port;
 import br.com.stockio.ports.exceptions.PortExecutionException;
 import br.com.stockio.trier.Trier;
 import br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;
-import br.com.stockio.use_cases.io.UseCaseInput;
 
 /**
  * Specific type of port: function ports are ports that both receive
@@ -22,19 +21,6 @@ public abstract class FunctionPort <I, O> extends Port {
      */
     public O executePortOn(I input, UseCaseExecutionCorrelation correlation){
         return this.handle(Trier.of(() -> this.executeLogic(input, correlation)));
-    }
-
-    /**
-     * Method accessible for triggering the port execution when the
-     * input type is an inheritor of UseCaseInput. In this case, it ain't
-     * necessary to pass the correlation as second parameter as it is
-     * already within the input itself, since it is an instance of UseCaseInput.
-     * @param input  its input object when it is same as a UseCaseInput
-     * @return the expected output of the port
-     */
-    @SuppressWarnings("unchecked")
-    public O executePortOn(UseCaseInput input){
-        return this.handle(Trier.of(() -> this.executeLogic((I) input, input.getCorrelation())));
     }
 
     private O handle(Trier.TrierBuilder<Void, O> trierBuilder){

@@ -2,7 +2,6 @@ package br.com.stockio.use_cases.io;
 
 import br.com.stockio.mapped_exceptions.MappedException;
 import br.com.stockio.mapped_exceptions.specifics.InternalMappedException;
-import br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;
 import br.com.stockio.use_cases.io.annotations.NotBlankInputField;
 import br.com.stockio.use_cases.io.annotations.NotEmptyInputField;
 import br.com.stockio.use_cases.io.annotations.NotNullInputField;
@@ -24,11 +23,11 @@ class UseCaseInputTest {
     private SomeNormalUseCaseInputImplementation normalUseCase;
     @BeforeEach
     void setUp(){
-        this.normalUseCase = new SomeNormalUseCaseInputImplementation(UseCaseExecutionCorrelation.ofNew());
+        this.normalUseCase = new SomeNormalUseCaseInputImplementation();
         this.normalUseCase.setFieldWhichMustNotBeEmpty("Not empty string");
         this.normalUseCase.setFieldWhichMustNotBeBlank("Not blank field");
         this.normalUseCase.setFieldWhichMustNotBeNull(3);
-        var innerObject = new SomeNormalInnerUseCaseInput(this.normalUseCase.getCorrelation());
+        var innerObject = new SomeNormalInnerUseCaseInput();
         innerObject.setInnerFieldWhichMustNotBeNull(1);
         this.normalUseCase.setFieldWhichMustHaveItsPropertiesValid(innerObject);
     }
@@ -60,12 +59,6 @@ class UseCaseInputTest {
     void shouldThrowNullFieldExceptionWhenValidatingInnerPropertiesOfAPropertyOfTheUseCaseInputImplementation(){
         this.normalUseCase.getFieldWhichMustHaveItsPropertiesValid().setInnerFieldWhichMustNotBeNull(null);
         Assertions.assertThrows(NullFieldException.class, this.normalUseCase::validateProperties);
-    }
-
-    @Test
-    void shouldThrowNullUseCaseExecutionCorrelationException(){
-        var input = new SomeNormalInnerUseCaseInput(null);
-        Assertions.assertThrows(UseCaseInput.NullUseCaseExecutionCorrelationException.class, input::validateProperties);
     }
 
     @Test
@@ -117,9 +110,6 @@ class UseCaseInputTest {
         @ValidInnerPropertiesInputField
         private SomeNormalInnerUseCaseInput fieldWhichMustHaveItsPropertiesValid;
 
-        public SomeNormalUseCaseInputImplementation(UseCaseExecutionCorrelation useCaseExecutionCorrelation) {
-            super(useCaseExecutionCorrelation);
-        }
     }
 
     @Getter
@@ -129,9 +119,6 @@ class UseCaseInputTest {
         @NotNullInputField
         private Integer innerFieldWhichMustNotBeNull;
 
-        public SomeNormalInnerUseCaseInput(UseCaseExecutionCorrelation useCaseExecutionCorrelation) {
-            super(useCaseExecutionCorrelation);
-        }
     }
 
     @Getter
@@ -141,9 +128,6 @@ class UseCaseInputTest {
         @NotBlankInputField
         private Integer someInteger;
 
-        public SomeProblematicInputWithNotBlankAnnotation() {
-            super(UseCaseExecutionCorrelation.ofNew());
-        }
     }
 
     @Getter
@@ -153,9 +137,6 @@ class UseCaseInputTest {
         @NotEmptyInputField
         private Integer someInteger;
 
-        public SomeProblematicInputWithNotEmptyAnnotation() {
-            super(UseCaseExecutionCorrelation.ofNew());
-        }
     }
 
     @Getter
@@ -165,18 +146,12 @@ class UseCaseInputTest {
         @ValidInnerPropertiesInputField
         private Integer someInteger;
 
-        public SomeProblematicInputWithValidInnerPropertiesAnnotation() {
-            super(UseCaseExecutionCorrelation.ofNew());
-        }
     }
 
     private static class SomeProblematicInputWithNoGetterMethods extends UseCaseInput{
 
         public final Integer someFieldWithoutGetter = 1;
 
-        public SomeProblematicInputWithNoGetterMethods() {
-            super(UseCaseExecutionCorrelation.ofNew());
-        }
     }
 
     private static class SomeProblematicInputWithGetterMethod extends UseCaseInput{
@@ -188,9 +163,6 @@ class UseCaseInputTest {
             throw new RuntimeException("opsie!");
         }
 
-        public SomeProblematicInputWithGetterMethod() {
-            super(UseCaseExecutionCorrelation.ofNew());
-        }
     }
 
     @Getter
@@ -200,9 +172,6 @@ class UseCaseInputTest {
         private Integer someField;
         private Integer someOtherField;
 
-        public SomeUseCaseInputThatImplementsArbitrarilyValidationRules() {
-            super(UseCaseExecutionCorrelation.ofNew());
-        }
 
         @Override
         public void validatePropertiesArbitrarily(){

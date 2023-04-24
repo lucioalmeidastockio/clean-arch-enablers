@@ -20,10 +20,9 @@ class FunctionUseCaseTest {
     @Test
     void shouldCallTheValidatePropertiesMethodFromInput(){
         var input = Mockito.mock(TheFunctionUseCaseImplementationInput.class);
-        Mockito.when(input.getCorrelation()).thenReturn(this.correlation);
         Mockito.doNothing().when(input).validateProperties();
         var useCase = new SomeNormalFunctionUseCaseImplementation();
-        var useCaseResult = useCase.execute(input);
+        var useCaseResult = useCase.execute(input, this.correlation);
         Assertions.assertNotNull(useCaseResult);
         Assertions.assertEquals("Just executed my internal logic", useCaseResult);
         Mockito.verify(input, Mockito.times(1)).validateProperties();
@@ -32,28 +31,25 @@ class FunctionUseCaseTest {
     @Test
     void shouldRunWithoutProblemsTheUseCase(){
         var input = Mockito.mock(TheFunctionUseCaseImplementationInput.class);
-        Mockito.when(input.getCorrelation()).thenReturn(this.correlation);
         Mockito.doNothing().when(input).validateProperties();
         var useCase = new SomeNormalFunctionUseCaseImplementation();
-        Assertions.assertDoesNotThrow(() -> useCase.execute(input));
+        Assertions.assertDoesNotThrow(() -> useCase.execute(input, this.correlation));
     }
 
     @Test
     void shouldHandleNotExpectedExceptionDuringUseCaseExecution(){
         var input = Mockito.mock(TheFunctionUseCaseImplementationInput.class);
-        Mockito.when(input.getCorrelation()).thenReturn(this.correlation);
         Mockito.doNothing().when(input).validateProperties();
         var useCase = new SomeUnexpectedProblematicFunctionUseCaseImplementation();
-        Assertions.assertThrows(UseCaseExecutionException.class, () -> useCase.execute(input));
+        Assertions.assertThrows(UseCaseExecutionException.class, () -> useCase.execute(input, this.correlation));
     }
 
     @Test
     void shouldHandleExpectedExceptionDuringUseCaseExecution(){
         var input = Mockito.mock(TheFunctionUseCaseImplementationInput.class);
-        Mockito.when(input.getCorrelation()).thenReturn(this.correlation);
         Mockito.doNothing().when(input).validateProperties();
         var useCase = new SomeExpectedProblematicFunctionUseCaseImplementation();
-        Assertions.assertThrows(SomeExpectedShitThatMightHappen.class, () -> useCase.execute(input));
+        Assertions.assertThrows(SomeExpectedShitThatMightHappen.class, () -> useCase.execute(input, this.correlation));
     }
 
     private static class SomeNormalFunctionUseCaseImplementation extends FunctionUseCase<TheFunctionUseCaseImplementationInput, String> {
@@ -87,9 +83,6 @@ class FunctionUseCaseTest {
     }
 
     private static class TheFunctionUseCaseImplementationInput extends UseCaseInput {
-        public TheFunctionUseCaseImplementationInput(UseCaseExecutionCorrelation useCaseExecutionCorrelation) {
-            super(useCaseExecutionCorrelation);
-        }
     }
 
     public static class SomeExpectedShitThatMightHappen extends MappedException {
