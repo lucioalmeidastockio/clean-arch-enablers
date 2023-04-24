@@ -20,38 +20,34 @@ class ConsumerUseCaseTest {
     @Test
     void shouldCallTheValidatePropertiesMethodFromInput(){
         var input = Mockito.mock(TheConsumerUseCaseImplementationInput.class);
-        Mockito.when(input.getCorrelation()).thenReturn(this.correlation);
         Mockito.doNothing().when(input).validateProperties();
         var useCase = new SomeConsumerUseCaseImplementation();
-        useCase.execute(input);
+        useCase.execute(input, this.correlation);
         Mockito.verify(input, Mockito.times(1)).validateProperties();
     }
 
     @Test
     void shouldRunWithoutProblemsTheUseCase(){
         var input = Mockito.mock(TheConsumerUseCaseImplementationInput.class);
-        Mockito.when(input.getCorrelation()).thenReturn(this.correlation);
         Mockito.doNothing().when(input).validateProperties();
         var useCase = new SomeConsumerUseCaseImplementation();
-        Assertions.assertDoesNotThrow(() -> useCase.execute(input));
+        Assertions.assertDoesNotThrow(() -> useCase.execute(input, this.correlation));
     }
 
     @Test
     void shouldHandleNotExpectedExceptionDuringUseCaseExecution(){
         var input = Mockito.mock(TheConsumerUseCaseImplementationInput.class);
-        Mockito.when(input.getCorrelation()).thenReturn(this.correlation);
         Mockito.doNothing().when(input).validateProperties();
         var useCase = new SomeUnexpectedProblematicConsumerUseCaseImplementation();
-        Assertions.assertThrows(UseCaseExecutionException.class, () -> useCase.execute(input));
+        Assertions.assertThrows(UseCaseExecutionException.class, () -> useCase.execute(input, this.correlation));
     }
 
     @Test
     void shouldHandleExpectedExceptionDuringUseCaseExecution(){
         var input = Mockito.mock(TheConsumerUseCaseImplementationInput.class);
-        Mockito.when(input.getCorrelation()).thenReturn(this.correlation);
         Mockito.doNothing().when(input).validateProperties();
         var useCase = new SomeExpectedProblematicConsumerUseCaseImplementation();
-        Assertions.assertThrows(SomeExpectedShitThatMightHappen.class, () -> useCase.execute(input));
+        Assertions.assertThrows(SomeExpectedShitThatMightHappen.class, () -> useCase.execute(input, this.correlation));
     }
 
     private static class SomeConsumerUseCaseImplementation extends ConsumerUseCase<TheConsumerUseCaseImplementationInput>{
@@ -85,9 +81,6 @@ class ConsumerUseCaseTest {
     }
 
     private static class TheConsumerUseCaseImplementationInput extends UseCaseInput{
-        public TheConsumerUseCaseImplementationInput(UseCaseExecutionCorrelation useCaseExecutionCorrelation) {
-            super(useCaseExecutionCorrelation);
-        }
     }
 
     public static class SomeExpectedShitThatMightHappen extends MappedException{

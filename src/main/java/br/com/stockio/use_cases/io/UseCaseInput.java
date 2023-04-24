@@ -2,7 +2,6 @@ package br.com.stockio.use_cases.io;
 
 import br.com.stockio.mapped_exceptions.MappedException;
 import br.com.stockio.mapped_exceptions.specifics.InternalMappedException;
-import br.com.stockio.use_cases.correlations.UseCaseExecutionCorrelation;
 import br.com.stockio.use_cases.io.annotations.NotBlankInputField;
 import br.com.stockio.use_cases.io.annotations.NotEmptyInputField;
 import br.com.stockio.use_cases.io.annotations.NotNullInputField;
@@ -26,24 +25,8 @@ import java.util.Optional;
  */
 public class UseCaseInput {
 
-    /**
-     * Every use case input instance must have its UseCaseExecutionCorrelation
-     * instance within
-     */
-    protected final UseCaseExecutionCorrelation useCaseExecutionCorrelation;
-
-    public UseCaseExecutionCorrelation getCorrelation(){
-        return this.useCaseExecutionCorrelation;
-    }
-
-    public UseCaseInput(UseCaseExecutionCorrelation useCaseExecutionCorrelation) {
-        this.useCaseExecutionCorrelation = useCaseExecutionCorrelation;
-    }
-
     public void validateProperties(){
         try {
-            if (this.useCaseExecutionCorrelation == null)
-                throw new NullUseCaseExecutionCorrelationException(this.getClass().getSimpleName());
             this.validatePropertiesArbitrarily();
             var fields = this.getClass().getDeclaredFields();
             for (var field : fields) {
@@ -56,7 +39,7 @@ public class UseCaseInput {
         } catch (MappedException mappedException){
             throw mappedException;
         } catch (Exception e) {
-            throw new InternalMappedException("Something went wrong while trying to validate properties of use case input object.",  "More details: " + e + "  | correlation ID:  " + this.useCaseExecutionCorrelation);
+            throw new InternalMappedException("Something went wrong while trying to validate properties of use case input object.",  "More details: " + e);
         }
     }
 
@@ -127,9 +110,4 @@ public class UseCaseInput {
         }
     }
 
-    public static class NullUseCaseExecutionCorrelationException extends InternalMappedException {
-        public NullUseCaseExecutionCorrelationException(String name) {
-            super("Use case inputs must have correlation ID", "The correlation ID of " +  name + " was null");
-        }
-    }
 }
