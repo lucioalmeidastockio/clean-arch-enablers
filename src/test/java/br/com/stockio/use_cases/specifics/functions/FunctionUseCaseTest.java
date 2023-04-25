@@ -57,7 +57,7 @@ class FunctionUseCaseTest {
             super(UseCaseMetadata.ofOpenAccessUseCase(SomeNormalFunctionUseCaseImplementation.class, "Just for testing"), LoggerForTesting.getSingletonInstance());
         }
         @Override
-        protected String applyInternalLogic(TheFunctionUseCaseImplementationInput input) {
+        protected String applyInternalLogic(TheFunctionUseCaseImplementationInput input, UseCaseExecutionCorrelation correlation) {
             return ("Just executed my internal logic");
         }
     }
@@ -67,7 +67,7 @@ class FunctionUseCaseTest {
             super(UseCaseMetadata.ofOpenAccessUseCase(SomeUnexpectedProblematicFunctionUseCaseImplementation.class, "Just for testing"), LoggerForTesting.getSingletonInstance());
         }
         @Override
-        protected String applyInternalLogic(TheFunctionUseCaseImplementationInput input) {
+        protected String applyInternalLogic(TheFunctionUseCaseImplementationInput input, UseCaseExecutionCorrelation correlation) {
             throw new RuntimeException("some unexpected internal error");
         }
     }
@@ -77,7 +77,7 @@ class FunctionUseCaseTest {
             super(UseCaseMetadata.ofOpenAccessUseCase(SomeExpectedProblematicFunctionUseCaseImplementation.class, "Just for testing"), LoggerForTesting.getSingletonInstance());
         }
         @Override
-        protected String applyInternalLogic(TheFunctionUseCaseImplementationInput input) {
+        protected String applyInternalLogic(TheFunctionUseCaseImplementationInput input, UseCaseExecutionCorrelation correlation) {
             throw new SomeExpectedShitThatMightHappen();
         }
     }

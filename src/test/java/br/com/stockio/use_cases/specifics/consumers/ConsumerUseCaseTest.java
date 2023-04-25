@@ -55,7 +55,7 @@ class ConsumerUseCaseTest {
             super(UseCaseMetadata.ofOpenAccessUseCase(SomeConsumerUseCaseImplementation.class, "Just for testing"), LoggerForTesting.getSingletonInstance());
         }
         @Override
-        protected void applyInternalLogic(TheConsumerUseCaseImplementationInput input) {
+        protected void applyInternalLogic(TheConsumerUseCaseImplementationInput input, UseCaseExecutionCorrelation correlation) {
             this.logger.logInfo("Just initialized my internal logic");
         }
     }
@@ -65,7 +65,7 @@ class ConsumerUseCaseTest {
             super(UseCaseMetadata.ofOpenAccessUseCase(SomeConsumerUseCaseImplementation.class, "Just for testing"), LoggerForTesting.getSingletonInstance());
         }
         @Override
-        protected void applyInternalLogic(TheConsumerUseCaseImplementationInput input) {
+        protected void applyInternalLogic(TheConsumerUseCaseImplementationInput input, UseCaseExecutionCorrelation correlation) {
             throw new RuntimeException("some unexpected internal error");
         }
     }
@@ -75,7 +75,7 @@ class ConsumerUseCaseTest {
             super(UseCaseMetadata.ofOpenAccessUseCase(SomeConsumerUseCaseImplementation.class, "Just for testing"), LoggerForTesting.getSingletonInstance());
         }
         @Override
-        protected void applyInternalLogic(TheConsumerUseCaseImplementationInput input) {
+        protected void applyInternalLogic(TheConsumerUseCaseImplementationInput input, UseCaseExecutionCorrelation correlation) {
             throw new SomeExpectedShitThatMightHappen();
         }
     }

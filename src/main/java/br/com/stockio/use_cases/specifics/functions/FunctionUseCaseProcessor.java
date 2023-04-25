@@ -14,7 +14,7 @@ public class FunctionUseCaseProcessor<I extends UseCaseInput, O> extends UseCase
     public O processUseCaseUsing(I input){
         try {
             this.logExecutionStart();
-            var output = this.useCase.applyInternalLogic(input);
+            var output = this.useCase.applyInternalLogic(input, this.useCaseExecutionCorrelation);
             this.logExecutionEnd();
             return output;
         } catch (Exception anyException){

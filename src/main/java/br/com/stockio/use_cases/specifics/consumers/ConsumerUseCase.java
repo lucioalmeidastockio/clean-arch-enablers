@@ -45,7 +45,7 @@ public abstract class ConsumerUseCase <I extends UseCaseInput> extends UseCase {
      * Internal method supposed to execute the core logic of the use case
      * @param input input of the use case
      */
-    protected abstract void applyInternalLogic(I input);
+    protected abstract void applyInternalLogic(I input, UseCaseExecutionCorrelation correlation);
 
 
 }

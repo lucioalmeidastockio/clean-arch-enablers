@@ -48,6 +48,6 @@ public abstract class FunctionUseCase <I extends UseCaseInput, O> extends UseCas
      * @param input input of the use case
      * @return output of the use case
      */
-    protected abstract O applyInternalLogic(I input);
+    protected abstract O applyInternalLogic(I input, UseCaseExecutionCorrelation correlation);
 
 }
