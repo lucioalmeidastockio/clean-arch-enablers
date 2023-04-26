@@ -64,18 +64,21 @@ class UseCaseInputTest {
     @Test
     void shouldThrowNotBlankAnnotationOnWrongTypeException(){
         var input = new SomeProblematicInputWithNotBlankAnnotation();
+        input.setSomeInteger(1);
         Assertions.assertThrows(NotBlankAnnotationOnWrongTypeException.class, input::validateProperties);
     }
 
     @Test
     void shouldThrowNotEmptyAnnotationOnWrongTypeException(){
         var input = new SomeProblematicInputWithNotEmptyAnnotation();
+        input.setSomeInteger(1);
         Assertions.assertThrows(NotEmptyAnnotationOnWrongTypeException.class, input::validateProperties);
     }
 
     @Test
     void shouldThrowValidInnerPropertiesAnnotationOnWrongTypeException(){
         var input = new SomeProblematicInputWithValidInnerPropertiesAnnotation();
+        input.setSomeInteger(1);
         Assertions.assertThrows(ValidInnerPropertiesAnnotationOnWrongTypeException.class, input::validateProperties);
     }
 

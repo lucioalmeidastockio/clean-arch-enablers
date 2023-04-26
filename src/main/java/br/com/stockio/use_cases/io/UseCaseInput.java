@@ -58,37 +58,36 @@ public class UseCaseInput {
 
     private void handleNotBlankAnnotation(Field field, Method getterMethod) throws IllegalAccessException, InvocationTargetException {
         if (field.isAnnotationPresent(NotBlankInputField.class)){
-            var value = getterMethod.invoke(this);
-            if (value instanceof String){
-                this.checkIfNotNull(value, field);
-                if (((String) value).isBlank())
-                    throw new BlankFieldException(field.getName());
-            } else
-                throw new NotBlankAnnotationOnWrongTypeException(field.getName());
+            Optional.ofNullable(getterMethod.invoke(this)).ifPresent(value -> {
+                if (value instanceof String){
+                    if (((String) value).isBlank())
+                        throw new BlankFieldException(field.getName());
+                } else
+                    throw new NotBlankAnnotationOnWrongTypeException(field.getName());
+            });
         }
     }
 
     private void handleNotEmptyAnnotation(Field field, Method getterMethod) throws IllegalAccessException, InvocationTargetException {
         if (field.isAnnotationPresent(NotEmptyInputField.class)){
-            var value = getterMethod.invoke(this);
-            if (value instanceof String){
-                this.checkIfNotNull(value, field);
-                if (((String) value).isEmpty())
-                    throw new EmptyFieldException(field.getName());
-            } else
-                throw new NotEmptyAnnotationOnWrongTypeException(field.getName());
+            Optional.ofNullable(getterMethod.invoke(this)).ifPresent(value -> {
+                if (value instanceof String){
+                    if (((String) value).isEmpty())
+                        throw new EmptyFieldException(field.getName());
+                } else
+                    throw new NotEmptyAnnotationOnWrongTypeException(field.getName());
+            });
         }
     }
 
     private void handleValidInnerPropertiesAnnotation(Field field, Method getterMethod) throws IllegalAccessException, InvocationTargetException {
         if (field.isAnnotationPresent(ValidInnerPropertiesInputField.class)){
-            var value = getterMethod.invoke(this);
-            if (value instanceof UseCaseInput){
-                this.checkIfNotNull(value, field);
-                ((UseCaseInput) value).validateProperties();
-            }
-            else
-                throw new ValidInnerPropertiesAnnotationOnWrongTypeException(field.getName());
+            Optional.ofNullable(getterMethod.invoke(this)).ifPresent(value -> {
+                if (value instanceof UseCaseInput)
+                    ((UseCaseInput) value).validateProperties();
+                else
+                    throw new ValidInnerPropertiesAnnotationOnWrongTypeException(field.getName());
+            });
         }
     }
 
