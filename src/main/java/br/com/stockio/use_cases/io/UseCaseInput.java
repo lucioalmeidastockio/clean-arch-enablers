@@ -27,7 +27,6 @@ public class UseCaseInput {
 
     public void validateProperties(){
         try {
-            this.validatePropertiesArbitrarily();
             var fields = this.getClass().getDeclaredFields();
             for (var field : fields) {
                 var getterMethod = this.getGetterMethodOf(field);
@@ -36,6 +35,7 @@ public class UseCaseInput {
                 this.handleValidInnerPropertiesAnnotation(field, getterMethod);
                 this.handleNotNullAnnotation(field, getterMethod);
             }
+            this.validatePropertiesArbitrarily();
         } catch (MappedException mappedException){
             throw mappedException;
         } catch (Exception e) {
