@@ -87,7 +87,7 @@ A Use Case in this lib is a component which has:
 ![use case subtypes](https://github.com/lucioalmeidastockio/clean-arch-enablers/blob/7-readme-content/doc_images/use-case-subtypes.png)
 
 ### :gear: FunctionUseCase: has input and output types. 
-> Its input type must extend the UseCaseInput type, so the its public `execute` method can call the input's `validateProperties` method. Besides that, the UseCaseInput type already has a required field: the UseCaseExecutionCorrelation, which is a type that has a UUID value, intended to represent each unique Use Case execution.
+> Its input type must extend the UseCaseInput type, so the its public `execute` method can call the input's `validateProperties` method.
 <br>
   
 ### :gear: ConsumerUseCase: has only input type, no output type. 
