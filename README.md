@@ -113,10 +113,7 @@ Ports, just like UseCases, also have 4 different types:
 
 <br>
 
-Those subtypes follow the same logic as the UseCase subtypes, except for it is not necessary for port input types to extend the UseCaseInput type. There is, though, an overload with the public port execution method in case of the port accepting custom input types:
-
-- A method which receives as parameters the input you specified at the generics plus the UseCaseExecutionCorrelation object (it might be needed if you want to pass it down to other APIs via HTTP calls)
-- A method which receives as its parameter the input you specified when that type extends the UseCaseInput type. When that is the case, as the UseCaseInput type must already have the UseCaseExecutionCorrelation instance, it ain't necessary to pass it as a different parameter, since it will be accessible from the main input instance.
+Those subtypes follow the same logic as the UseCase subtypes, except for it is not necessary for port input types to extend the UseCaseInput type.
 
 ## Use Case Inputs
 UseCaseInput is the required type to be the input of any use case. It is because of this that any UseCase instance will be able to call the `validateProperties` method internally, which will validate if the non-null fields are not null indeed and so on. The current available types of validation supported are:
